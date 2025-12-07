@@ -1,0 +1,13 @@
+{
+    "manifest_version": 3,
+    "name": "HN Daily - Hacker News New Tab",
+    "version": "1.0.0",
+    "description": "A beautiful daily.dev-inspired new tab page powered by Hacker News. Stay updated with the best developer news.",
+    "author": "HN Daily",
+    "chrome_url_overrides": {
+        "newtab": "index.html"
+    },
+    "permissions": [
+        "storage"
+    ]
+}

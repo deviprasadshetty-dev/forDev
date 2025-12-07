@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Generate Icons</title>
+</head>
+
+<body>
+    <h1>Icon Generator</h1>
+    <p>Right-click each canvas and save as PNG:</p>
+
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <div>
+            <p>icon16.png</p>
+            <canvas id="c16" width="16" height="16"></canvas>
+        </div>
+        <div>
+            <p>icon32.png</p>
+            <canvas id="c32" width="32" height="32"></canvas>
+        </div>
+        <div>
+            <p>icon48.png</p>
+            <canvas id="c48" width="48" height="48"></canvas>
+        </div>
+        <div>
+            <p>icon128.png</p>
+            <canvas id="c128" width="128" height="128"></canvas>
+        </div>
+    </div>
+
+    <script>
+        function drawIcon(canvas) {
+            const ctx = canvas.getContext('2d');
+            const size = canvas.width;
+            const radius = size * 0.22;
+
+            // Gradient background
+            const grad = ctx.createLinearGradient(0, 0, size, size);
+            grad.addColorStop(0, '#CE3DF3');
+            grad.addColorStop(1, '#6366F1');
+
+            // Rounded rectangle
+            ctx.beginPath();
+            ctx.roundRect(0, 0, size, size, radius);
+            ctx.fillStyle = grad;
+            ctx.fill();
+
+            // Lightning bolt
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            const cx = size / 2;
+            const cy = size / 2;
+            const s = size / 128; // scale factor
+
+            ctx.moveTo(cx, cy - 40 * s);
+            ctx.lineTo(cx - 12 * s, cy - 8 * s);
+            ctx.lineTo(cx - 28 * s, cy - 8 * s);
+            ctx.lineTo(cx - 8 * s, cy + 16 * s);
+            ctx.lineTo(cx - 16 * s, cy + 40 * s);
+            ctx.lineTo(cx, cy + 24 * s);
+            ctx.lineTo(cx + 16 * s, cy + 40 * s);
+            ctx.lineTo(cx + 8 * s, cy + 16 * s);
+            ctx.lineTo(cx + 28 * s, cy - 8 * s);
+            ctx.lineTo(cx + 12 * s, cy - 8 * s);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        ['c16', 'c32', 'c48', 'c128'].forEach(id => {
+            drawIcon(document.getElementById(id));
+        });
+    </script>
+</body>
+
+</html>

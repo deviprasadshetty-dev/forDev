@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>forDev - Developer News</title>
+    <meta name="description"
+        content="Stay updated with the best developer news. A beautiful, modern interface for browsing HN stories.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom Styles (includes all Tailwind utilities) -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="bg-hn-bg text-hn-text font-sans antialiased">
+    <div class="flex h-screen overflow-hidden">
+
+        <!-- Left Sidebar -->
+        <aside id="sidebar"
+            class="w-16 lg:w-64 bg-hn-surface border-r border-hn-border flex flex-col transition-all duration-300 shrink-0">
+            <!-- Logo -->
+            <div class="h-16 flex items-center justify-center lg:justify-start lg:px-4 border-b border-hn-border">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 rounded-xl bg-gradient-to-br from-hn-accent to-purple-600 flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <span
+                        class="hidden lg:block text-xl font-bold bg-gradient-to-r from-hn-accent to-purple-400 bg-clip-text text-transparent">
+                        forDev
+                    </span>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 py-4 px-2 lg:px-3 space-y-1 overflow-y-auto">
+                <!-- Feed Types -->
+                <div class="space-y-1">
+                    <button data-feed="top"
+                        class="nav-item active w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+                        </svg>
+                        <span class="hidden lg:block font-medium">Top Stories</span>
+                    </button>
+
+                    <button data-feed="best"
+                        class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                        </svg>
+                        <span class="hidden lg:block font-medium">Best Stories</span>
+                    </button>
+
+                    <button data-feed="new"
+                        class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="hidden lg:block font-medium">New Stories</span>
+                    </button>
+
+                    <button data-feed="ask"
+                        class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="hidden lg:block font-medium">Ask HN</span>
+                    </button>
+
+                    <button data-feed="show"
+                        class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        </svg>
+                        <span class="hidden lg:block font-medium">Show HN</span>
+                    </button>
+
+                    <button data-feed="job"
+                        class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        <span class="hidden lg:block font-medium">Jobs</span>
+                    </button>
+                </div>
+
+                <!-- Divider -->
+                <div class="my-4 border-t border-hn-border"></div>
+
+                <!-- Personal -->
+                <div class="space-y-1">
+                    <button id="bookmarks-btn"
+                        class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                        </svg>
+                        <span class="hidden lg:block font-medium">Bookmarks</span>
+                        <span id="bookmark-count"
+                            class="hidden lg:flex ml-auto bg-hn-accent/20 text-hn-accent text-xs font-semibold px-2 py-0.5 rounded-full">0</span>
+                    </button>
+
+                    <button id="history-btn"
+                        class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="hidden lg:block font-medium">History</span>
+                    </button>
+                </div>
+            </nav>
+
+            <!-- Footer -->
+            <div class="p-3 border-t border-hn-border">
+                <a href="https://news.ycombinator.com" target="_blank"
+                    class="flex items-center gap-3 px-3 py-2 text-hn-text-secondary hover:text-hn-orange transition-colors rounded-lg hover:bg-hn-surface-hover">
+                    <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                    </svg>
+                    <span class="hidden lg:block text-sm">Powered by HN</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col min-w-0">
+            <!-- Header -->
+            <header
+                class="h-16 bg-hn-surface/80 backdrop-blur-xl border-b border-hn-border flex items-center justify-end px-4 lg:px-6 shrink-0 sticky top-0 z-20">
+                <!-- Right Actions -->
+                <div class="flex items-center gap-3">
+                    <!-- Refresh Button -->
+                    <button id="refresh-btn"
+                        class="p-2.5 rounded-xl bg-hn-bg border border-hn-border hover:bg-hn-surface-hover hover:border-hn-accent transition-all"
+                        title="Refresh">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Feed Info Bar -->
+            <div class="bg-hn-surface/50 border-b border-hn-border px-4 lg:px-6 py-3 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <h1 id="feed-title" class="text-lg font-semibold">Top Stories</h1>
+                    <span id="story-count" class="text-sm text-hn-text-secondary"></span>
+                </div>
+                <div class="text-sm text-hn-text-tertiary">
+                    <span id="last-updated">Last updated: just now</span>
+                </div>
+            </div>
+
+            <!-- Stories Container -->
+            <div id="stories-container" class="flex-1 overflow-y-auto p-4 lg:p-6">
+                <!-- Loading Skeleton -->
+                <div id="loading-skeleton"
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 hidden">
+                    <!-- Skeleton cards will be inserted here -->
+                </div>
+
+                <!-- Stories Grid -->
+                <div id="stories-grid"
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 hidden">
+                    <!-- Story cards will be inserted here -->
+                </div>
+
+                <!-- Stories List -->
+                <div id="stories-list" class="space-y-3 hidden">
+                    <!-- Story list items will be inserted here -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="empty-state" class="hidden flex-col items-center justify-center py-20">
+                    <svg class="w-16 h-16 text-hn-text-tertiary mb-4" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                    </svg>
+                    <h3 class="text-lg font-medium text-hn-text-secondary mb-2">No stories found</h3>
+                    <p class="text-sm text-hn-text-tertiary">Try adjusting your search or filters</p>
+                </div>
+
+                <!-- Load More Button -->
+                <div id="load-more-container" class="flex justify-center py-8 hidden">
+                    <button id="load-more-btn"
+                        class="px-6 py-3 bg-hn-surface hover:bg-hn-surface-hover border border-hn-border rounded-xl font-medium transition-all hover:border-hn-accent flex items-center gap-2">
+                        <span>Load More</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3"></div>
+
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+</body>
+
+</html>
