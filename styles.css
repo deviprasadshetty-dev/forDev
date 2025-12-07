@@ -968,48 +968,70 @@ body {
     background: #1C1F26;
     border: 1px solid #3D4350;
     border-radius: 16px;
-    padding: 20px;
+    padding: 0;
+    /* Remove padding to let cover hit edges */
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
-.story-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    gap: 6px;
-    padding: 4px 10px;
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    font-size: 12px;
+.story-card:hover {
+    border-color: var(--text-secondary);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.card-cover {
+    height: 100px;
+    width: 100%;
+    /* Gradient handled inline */
+}
+
+.card-content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.story-card .source-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
     font-weight: 500;
     color: var(--text-secondary);
-    transition: all 0.2s ease;
 }
 
-.story-card:hover .source-badge {
-    background: var(--bg-tertiary);
-    border-color: var(--text-tertiary);
-    color: var(--text-primary);
+.story-card .read-time {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    font-weight: 500;
 }
 
 .story-card .title {
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
     line-height: 1.5;
     color: #FFFFFF;
-    margin: 12px 0;
+    margin: 0 0 16px 0;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     transition: color 0.2s ease;
+    flex: 1;
+    /* Push footer down */
 }
 
 .story-card:hover .title {
@@ -1018,89 +1040,50 @@ body {
     text-decoration-color: var(--text-secondary);
 }
 
-.story-card .meta {
+.meta-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.meta-stats {
     display: flex;
     align-items: center;
     gap: 12px;
-    font-size: 13px;
-    color: #A8B3CF;
 }
 
 .story-card .meta-item {
     display: flex;
     align-items: center;
     gap: 4px;
+    font-size: 12px;
+    color: var(--text-secondary);
 }
 
 .story-card .meta-item svg {
-    width: 16px;
-    height: 16px;
-    color: #525866;
+    width: 14px;
+    height: 14px;
+    color: var(--text-tertiary);
 }
 
-.story-card .author {
-    font-size: 12px;
-    color: #525866;
-    margin-top: 12px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.story-card .author::before {
-    content: '';
-    width: 20px;
-    height: 20px;
-    background: var(--bg-tertiary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--border-color);
-}
-
-/* ===== Story Card Actions ===== */
-.story-card .actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid #3D4350;
-}
-
-.story-card .action-btn,
-.story-list-item .action-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 8px 12px;
+.story-card .bookmark-btn {
+    color: var(--text-secondary);
+    padding: 6px;
     border-radius: 8px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #A8B3CF;
-    background: transparent;
-    border: 1px solid transparent;
-    transition: all 0.2s ease;
-    cursor: pointer;
+    transition: all 0.2s;
 }
 
-.story-card .action-btn:hover,
-.story-list-item .action-btn:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: #3D4350;
-    color: #FFFFFF;
+.story-card .bookmark-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--accent);
 }
 
-.story-card .action-btn.bookmarked,
-.story-list-item .action-btn.bookmarked {
-    color: #CE3DF3;
-}
-
-.story-card .action-btn.bookmarked svg,
-.story-list-item .action-btn.bookmarked svg {
-    fill: #CE3DF3;
+.story-card .bookmark-btn.bookmarked {
+    color: var(--accent-secondary);
+    fill: var(--accent-secondary);
 }
 
 /* ===== Story List Item ===== */

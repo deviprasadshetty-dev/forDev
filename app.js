@@ -261,65 +261,69 @@ function createStoryCard(story, rank) {
     const storyUrl = story.url || `https://news.ycombinator.com/item?id=${story.id}`;
     const commentsUrl = `https://news.ycombinator.com/item?id=${story.id}`;
 
+    // Generate gradient based on story ID
+    const gradient = generateGradient(story.id);
+    const readTime = Math.ceil((story.score % 10) + 2) + 'm read';
+
     return `
         <article class="story-card" data-id="${story.id}">
-            <div class="flex items-center justify-between mb-3">
-                <span class="source-badge">
-                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
-                    </svg>
-                    ${domain || 'news.ycombinator.com'}
-                </span>
-                <span class="score-badge">
-                    <svg viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M10 3l2.5 5.5L18 9l-4 4 1 5.5-5-3-5 3 1-5.5-4-4 5.5-.5L10 3z"/>
-                    </svg>
-                    ${story.score || 0}
-                </span>
-            </div>
-            
-            <h2 class="title">${escapeHtml(story.title)}</h2>
-            
-            <div class="meta">
-                <span class="meta-item">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-                    </svg>
-                    ${story.descendants || 0}
-                </span>
-                <span class="meta-item">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                    ${timeAgo}
-                </span>
-            </div>
-            
-            <div class="author">
-                <span>by ${escapeHtml(story.by || 'unknown')}</span>
-            </div>
-            
-            <div class="actions">
-                <a href="${storyUrl}" target="_blank" rel="noopener" class="action-btn story-link" onclick="event.stopPropagation();">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                    </svg>
-                    Read
-                </a>
-                <a href="${commentsUrl}" target="_blank" rel="noopener" class="action-btn" onclick="event.stopPropagation();">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-                    </svg>
-                    Comments
-                </a>
-                <button class="action-btn bookmark-btn ${isBookmarked ? 'bookmarked' : ''}" data-id="${story.id}" onclick="event.stopPropagation(); toggleBookmark(${story.id});">
-                    <svg class="w-4 h-4" fill="${isBookmarked ? 'currentColor' : 'none'}" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
-                    </svg>
-                </button>
+            <div class="card-cover" style="background: ${gradient}"></div>
+            <div class="card-content">
+                <div class="card-header">
+                    <span class="source-badge">
+                        <img src="https://www.google.com/s2/favicons?domain=${domain || 'news.ycombinator.com'}&sz=32" alt="" class="w-4 h-4 rounded-full">
+                        ${domain || 'news.ycombinator.com'}
+                    </span>
+                    <span class="read-time">${readTime}</span>
+                </div>
+                
+                <h2 class="title" onclick="window.open('${storyUrl}', '_blank')">${escapeHtml(story.title)}</h2>
+                
+                <div class="meta-footer">
+                    <div class="meta-stats">
+                        <span class="meta-item" title="Points">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+                            </svg>
+                            ${story.score || 0}
+                        </span>
+                        <span class="meta-item" title="Comments">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                            </svg>
+                            ${story.descendants || 0}
+                        </span>
+                    </div>
+                    
+                    <button class="action-btn bookmark-btn ${isBookmarked ? 'bookmarked' : ''}" 
+                            onclick="toggleBookmark(${story.id}, event)" 
+                            title="${isBookmarked ? 'Remove Bookmark' : 'Bookmark'}">
+                        <svg class="w-5 h-5" fill="${isBookmarked ? 'currentColor' : 'none'}" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </article>
     `;
+}
+
+// Generate consistent gradient from ID
+function generateGradient(id) {
+    const colors = [
+        ['#FF0080', '#7928CA'],
+        ['#4F46E5', '#06B6D4'],
+        ['#FA8BFF', '#2BD2FF', '#2BFF88'],
+        ['#FF4D4D', '#F9CB28'],
+        ['#7928CA', '#FF0080'],
+        ['#2193b0', '#6dd5ed'],
+        ['#8E2DE2', '#4A00E0'],
+        ['#00c6ff', '#0072ff']
+    ];
+    const index = id % colors.length;
+    const selected = colors[index];
+    const angle = (id % 360);
+    return `linear-gradient(${angle}deg, ${selected.join(', ')})`;
 }
 
 // Create Story List Item (List View)
